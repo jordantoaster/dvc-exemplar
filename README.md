@@ -66,6 +66,8 @@ e.g. New data -> file store -> pull new data into execution environment -> merge
 
 - Collaboration file conflicts are possible. For example if two developers change the same .dvc file, how do you resolve which one should be leveraged? It is possible to solve this by protecting the .dvc files and discussion in merge requests.
 
+- It is also possible to take some of the heavy lifting from the user by combining DVC with Travis CI to version the data and models upon certain conditions. IE upon merge to a shared development branch.
+
 ## Resources
 
 - DVC Official Documentation 
