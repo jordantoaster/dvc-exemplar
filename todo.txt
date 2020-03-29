@@ -1,0 +1,6 @@
+- Basic End to End DVC
+- README with how to use DVC in this repo.
+- How to clone WIP repo and get data.
+- How to switch to old data version.
+- How to update existing data / model
+- How to addd new data / model

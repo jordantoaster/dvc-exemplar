@@ -1,0 +1,13 @@
+md5: 45ffb2e486dcf11196f3ea9270369d81
+cmd: python src/preprocessing.py data/data.csv
+deps:
+- md5: fdcd5a623082dcc0f27f9ddcf3f30b75
+  path: src/preprocessing.py
+- md5: 02a7a16b17fa4049f2828427c00fcebb
+  path: data/data.csv
+outs:
+- md5: de392385862ba94f795df5219e4cb13d.dir
+  path: data/preprocessed
+  cache: true
+  metric: false
+  persist: false
