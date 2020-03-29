@@ -1,0 +1,13 @@
+md5: 4de55ffb46a105330c6c7dcaeca2a4e8
+cmd: python src/train.py data/preprocessed
+deps:
+- md5: cfa3de527389d71b30bbebccdeabaffb
+  path: src/train.py
+- md5: 621810f4196a239c295f811012a0f41b.dir
+  path: data/preprocessed
+outs:
+- md5: 965a5d030d09a98a224e42218e0a08dd.dir
+  path: model
+  cache: true
+  metric: false
+  persist: false
