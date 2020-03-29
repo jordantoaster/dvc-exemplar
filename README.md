@@ -6,6 +6,16 @@ Scripts are provided to simulate data preparation and training.
 
 The core goal is to showcase how to merge data, code and models into a single retreivable snapshot using GIT.
 
+In this project you can modify the data as you desire and generate a new model through running...
+
+``python src/preprocessing.py data/data.csv``
+
+then
+
+``python src/train.py data``
+
+which will take a given dataset, process the data and generate a new model from which you can play with the DVC workflow.
+
 ## Setup
 
 1. Clone the repostory locally.
@@ -16,47 +26,46 @@ The core goal is to showcase how to merge data, code and models into a single re
 
 4. Given this repository has already setup DVC, you will not need to run ``dvc init`` or ``dvc remote add...``. For reference the remote used in this project is: ``dvc remote add -d s3remote s3://dvc-exemplar/artifact-versioning``
 
-5. The data will not exist in your local workspace at this point, you will need to run ````
+5. The data will not exist in your local workspace at this point, you will need to run ``dvc pull`` - this will put required files in the workspace.
 
 ## DVC Workflow
 
+- When you have modified either a model or a data file, you will run ``dvc add [FILE|FOLDER]``. This command creates a .dvc file for each artifact you want to track and copies the file or folder to the DVC cache while also adding the file to the dvc .gitignore file to prevent it being added to GIT. Only the .dvc files need put into source control.
 
+- When you want to push your artifact changes to a remote, you need to run ``dvc push``, which in this case, will put the data onto S3 with the rest of the data versions.
+
+- For development ease, for each change in either your model or data its recommended to tag your GIT branch. 
+
+e.g. ``git tag -a "v2.0" -m "model v2.0, 2000 images"``
+
+This will enable you to do two things:
+
+1. Restore a snapshot of the data, model and code associated with a tag:
+
+``git checkout v1.0 dvc checkout``
+
+2. Keep your current source code but load the data models associated with a tag:
+
+``git checkout v1.0 data.dvc dvc checkout data.dvc``
+
+
+## Development Use Cases
+
+- In sandbox / EDA you will have several versions of a bulk dataset, from original to cleaned and others with other modifications. To this end, having a tagged history of the data in which you can pull the original dataset indepedent of code is valuable while avoiding any manual steps in getting data from a file store or even worse, putting data in a repository.
+
+- In production, you will plan to train for new data. In this training process you can setup a either an automated or manual training process in which you use the latest data from a given source, then update the version history after the fact. 
+
+e.g. New data -> file store -> pull new data into execution environment -> merge or replace data snf update Git history. This process is much more aligned to manual intervention process rather than automation.
+
+- If something goes wrong in the deployed code, you can revert the git history to use both data and a model that is 'safe'.
+
+- Model, code and data are connected to a single git history via the .dvc files and standard code source control.
 
 
 ## Notes
 
-
+- Collaboration file conflicts are possible. For example if two developers change the same .dvc file, how do you resolve which one should be leveraged? It is possible to solve this by protecting the .dvc files and discussion in merge requests.
 
 ## Resources
 
-
-
-dvc add [file or folder] - this puts the data in the cache
-
-dvc push - pushes to remote and links the md5 hash locally with it.
-
-Each thing added gets a dvc file to enable a local ref.
-
-IF a data file is modified, you run dvc add, which modifies the .dvc file, you then version this in git. If you change verion of branch you can retrieve the older version of the data.
-
-using git tag to make data and model snapshots easy to find is possible 
-git tag -a "v1.0" -m "model v1.0, 1000 images"
-
-Then you can run
-git checkout v1.0
-dvc checkout
-to get the code and the data associated together, single versioned snapshapt.
-
-On the other hand, if we want to keep the current code, but go back to the previous dataset version, we can do something like this:
-git checkout v1.0 data.dvc
-dvc checkout data.dvc
-When we run git checkout we restore pointers (DVC-files) first. Then, when we run dvc checkout, we use these pointers to put the right data in the right place.
-for experimental work, using new code on old data.
-
-get some intermediate data.
-python src/preprocessing.py data/data.csv
-
-get a new model version
-python src/train.py data
-
-Need to add info on how to pull the data when it is cloned.
+- DVC Official Documentation 
