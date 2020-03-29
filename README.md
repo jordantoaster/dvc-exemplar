@@ -30,3 +30,15 @@ dvc run -f preprocessing.dvc \
         -d src/preprocessing.py -d data/data.csv \
         -o data/preprocessed \
         python src/preprocessing.py data/data.csv
+
+Model stage
+
+dvc run -f train.dvc \
+        -d src/train.py -d data/preprocessed \
+        -o model/model.joblib \
+        python src/train.py data/preprocessed
+
+Show pipeline
+
+dvc pipeline show --ascii train.dvc
+

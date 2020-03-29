@@ -17,7 +17,8 @@ class Preprocessing():
         self.save_file(df_test, "test")
     
     def make_output_dir(self):
-        os.makedirs(self.curr_dir + "/data/preprocessed")
+        if not os.path.exists(self.curr_dir + "/data/preprocessed"):
+            os.makedirs(self.curr_dir + "/data/preprocessed")
 
     def etl(self, df: pd.DataFrame):
         """
