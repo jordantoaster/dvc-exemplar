@@ -1,0 +1,10 @@
+,feature, label,divided_by_ten
+1,45, approved,4.5
+4,11, rejected,1.1
+6,15, rejected,1.5
+3,8, rejected,0.8
+7,32, rejected,3.2
+2,55, approved,5.5
+0,70, approved,7.0
+10,77, approved,7.7
+8,57, approved,5.7
