@@ -1,0 +1,5 @@
+dvc
+boto3
+sklearn
+pandas
+joblib
