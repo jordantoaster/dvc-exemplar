@@ -61,6 +61,8 @@ e.g. New data -> file store -> pull new data into execution environment -> merge
 
 - Model, code and data are connected to a single git history via the .dvc files and standard code source control.
 
+- In a experiment stage, post EDA multiple team members can have a branch per experiment and push artifacts to the file store freely. The file store is not human interpretable in any case. The key thing that manages data versioning and protection is the .dvc file and the tag associated with a specefic branch if you want to recreate an experiment, which in turns has its own appropriate requirements.txt, code and so on. From this you can pull the data using dvc to recreate.
+
 
 ## Notes
 
